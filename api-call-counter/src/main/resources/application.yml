@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:22222/postgres
+    username: postgres
+  jpa:
+    generateDdl: true
+    hibernate:
+      ddl-auto: update
+
+mock-repository: false
+mock-github-client: false

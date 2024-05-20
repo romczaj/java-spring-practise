@@ -1,0 +1,39 @@
+### media file response
+GET http://localhost:8080/media-file/description?mediaFileId=96cc1402-1646-4ca6-83b4-2b9b44d214ea
+
+### media file verification result
+POST http://localhost:8080/media-file/verification-result
+Content-Type: application/json
+
+{
+  "mediaFileId": "415bd8de-88dd-448e-9659-81a08584feef",
+  "accepted": true
+}
+
+
+### insert annoucement
+POST http://localhost:8080/announcement
+Content-Type: application/json
+
+{
+  "name": "asdasdasdade",
+  "toDate": 1725974686,
+  "fromDate": 1662816286,
+  "mediaFileIds": ["3ca533c6-13d5-408f-a4ed-8b8f4644ca24", "73b5b9c9-210a-4abf-8ed5-781d8b333b87"],
+  "personIds": ["bfa1358f-abf7-4c11-8438-ec541b83233e", "66276936-5953-47c7-a7bd-566278395817"]
+}
+
+
+### insert person
+POST http://localhost:8080/person
+Content-Type: application/json
+
+{
+  "name": "Jan",
+  "surname": "Nowak"
+}
+
+
+### annoucement details
+GET http://localhost:8080/announcement/details
+

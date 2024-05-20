@@ -1,0 +1,30 @@
+type Post {
+    id: ID!
+    title: String
+    text: String
+    category: String
+    author: Author
+}
+
+type Author {
+    id: ID!
+    name: String!
+    thumbnail: String
+    posts: [Post]!
+}
+
+input PostInput {
+    title: String!,
+    text: String!,
+    category: String!
+    authorId: String!
+}
+
+type Query {
+    getPosts(count: Int, offset: Int): [Post]!
+    getAuthors(count: Int, offset: Int): [Author]!
+}
+
+type Mutation {
+    createPost(postInput: PostInput!) : Post!
+}

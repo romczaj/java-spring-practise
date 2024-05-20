@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test /file Endpoint with Authorization Header</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<form id="myForm" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput">
+    <input type="text" name="title" id="titleInput" value="title" placeholder="Title">
+    <input type="text" name="description" id="descriptionInput" value="description" placeholder="Description">
+    <button type="button" onclick="submitForm()">Upload</button>
+</form>
+
+
+<img id="imageElement">
+
+<script>
+    var authToken = 'eyJhbGciOiJIUzI1NiJ9.eyJsb2dnaW5nVG9rZW4iOiIzZGYwNDA0Ni0wMmEwLTQxY2ItYWI5OC0zM2I2YzFmYTIyOWUiLCJleHAiOjE2ODc1MDkyNTEsInVzZXJJZCI6IjA0NGEyYjdkLWRkYWQtNDA2ZC1hNmZlLTNjODE4YTRkYmZmMiIsImlhdCI6MTY4NzI1MDA1MSwidXNlcm5hbWUiOiJhamVtcm9tZWtAZ21haWwuY29tIn0.vCYlkBip1RWueJyeUdO8QeIOaliEfcJsjXgMdEPaKC8';
+    var host = 'http://localhost:8080'
+
+    // Fetch the image from the endpoint
+    fetch(host + '/media-file/download?mediaFileId=722648d8-196f-4575-a11a-d2a4d4b61311')
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a URL for the image blob
+            var imageURL = URL.createObjectURL(blob);
+
+            // Set the image source
+            var imageElement = document.getElementById('imageElement');
+            imageElement.src = imageURL;
+        })
+        .catch(error => {
+            console.log('Error fetching image:', error);
+        });
+
+    function submitForm() {
+        var fileInput = document.getElementById('fileInput');
+        var titleInput = document.getElementById('titleInput');
+        var descriptionInput = document.getElementById('descriptionInput');
+
+        var formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('title', titleInput.value);
+        formData.append('description', descriptionInput.value);
+
+        $.ajax({
+            url: host + '/media-file',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + authToken);
+            },
+            success: function (response) {
+                console.log('Image uploaded successfully.');
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log('Error uploading image.');
+                console.log(error);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -6,12 +6,29 @@
 
     <groupId>pl.romczaj</groupId>
     <artifactId>java-spring-practise</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>api-call-counter</module>
+        <module>spring-security-practise</module>
+        <module>heap-error-practise</module>
+        <module>multidomain-practise</module>
+        <module>http-practise</module>
+        <module>graph-ql-practise</module>
+        <module>grpc-practise</module>
+        <module>modulith-practise</module>
+    </modules>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.4</version>
+    </parent>
 
 </project>

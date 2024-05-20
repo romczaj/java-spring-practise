@@ -1,0 +1,5 @@
+###
+GET http://localhost:8080/invoke-async
+
+###
+GET http://localhost:8080/invoke-blocking?id=3

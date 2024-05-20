@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "pl.romczaj.grpc.api";
+option java_multiple_files = true;
+
+message CarRequest {
+  int32 id = 1;
+}
+
+message CarResponse {
+  int32 id = 1;
+  string name = 2;
+}
+
+
+service CarService {
+
+  rpc StreamCar(stream CarRequest) returns (stream CarResponse);
+
+  rpc getByName(CarRequest) returns (CarResponse);
+
+}

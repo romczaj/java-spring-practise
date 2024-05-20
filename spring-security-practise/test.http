@@ -1,0 +1,2 @@
+http://localhost:8080/admin/cars
+Authorization: Basic ADMIN_USERNAME ADMIN_PASSWORD

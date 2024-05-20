@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  domain_practise:
+    container_name: domain_practise
+    image: postgres:15.4
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '21333:5432'
+    command: ["postgres", "-c", "log_statement=all"]
