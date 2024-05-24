@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  java-spring-practise:
+    container_name: java-spring-practise
+    image: postgres:15.4
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '21333:5432'
+    command: ["postgres", "-c", "log_statement=all"]

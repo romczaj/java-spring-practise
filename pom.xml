@@ -17,6 +17,7 @@
         <module>graph-ql-practise</module>
         <module>grpc-practise</module>
         <module>modulith-practise</module>
+        <module>batch-app</module>
     </modules>
 
     <properties>

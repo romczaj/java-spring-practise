@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:21333/postgres
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+  jpa:
+    generateDdl: true
+    hibernate:
+      ddl-auto: update
+custom:
+  batch:
+    chunk-size: 10
+    default-generate-transactions-size: 1000
