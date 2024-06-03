@@ -13,9 +13,8 @@ public class UserFacade {
     private final GithubClient githubClient;
 
     public UserApiResponse findUser(String login) {
-        return githubClient.findUser(login)
-            .map(this::toUserApiResponse)
-            .getOrElseThrow(FailedOperationException::new);
+        UserApiGithubResponse user = githubClient.findUser(login);
+        return toUserApiResponse(user);
     }
 
     private UserApiResponse toUserApiResponse(UserApiGithubResponse userApiGithubResponse) {
@@ -25,8 +24,7 @@ public class UserFacade {
             userApiGithubResponse.name(),
             userApiGithubResponse.type(),
             userApiGithubResponse.avatarUrl(),
-            userApiGithubResponse.createdAt(),
-            CalculationsUtil.countUserData(userApiGithubResponse.followers(), userApiGithubResponse.publicRepos())
+            userApiGithubResponse.createdAt()
         );
     }
 

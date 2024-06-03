@@ -1,27 +1,83 @@
 package com.romczaj.apicallcounter.user.githubclient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import feign.Feign;
+import feign.FeignException;
 import feign.Logger;
+import feign.Response;
+import feign.Retryer;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.feign.FeignDecorators;
+import io.github.resilience4j.feign.Resilience4jFeign;
+import io.github.resilience4j.retry.Retry;
+import io.github.resilience4j.retry.RetryConfig;
+import io.github.resilience4j.retry.RetryRegistry;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
+import java.util.concurrent.TimeoutException;
+
 @Configuration
+@Slf4j
 class GithubOkHttpConfiguration {
 
-    private static final String GITHUB_USERS_URL = "https://api.github.com/users";
+    private static final String GITHUB = "github";
+
     @Bean
-    GithubFeignClient githubFeignClient(ObjectMapper objectMapper){
-        return Feign.builder()
-            .client(new OkHttpClient())
-            .encoder(new JacksonEncoder(objectMapper))
-            .decoder(new JacksonDecoder(objectMapper))
-            .logger(new Slf4jLogger(GithubFeignClient.class))
-            .logLevel(Logger.Level.FULL)
-            .target(GithubFeignClient.class, GITHUB_USERS_URL);
+    GithubFeignInterface githubFeignClient(ObjectMapper objectMapper, GithubApiProperties githubApiProperties){
+
+        CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()
+                .failureRateThreshold(50)
+                .slowCallRateThreshold(1)
+                .waitDurationInOpenState(Duration.ofMillis(1000))
+                .slowCallDurationThreshold(Duration.ofSeconds(2))
+                .permittedNumberOfCallsInHalfOpenState(3)
+                .minimumNumberOfCalls(10)
+                .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.TIME_BASED)
+                .slidingWindowSize(5)
+                .recordExceptions(Exception.class, TimeoutException.class, FeignException.class)
+                .build();
+
+        CircuitBreaker customCircuitBreaker = CircuitBreaker.of(GITHUB, circuitBreakerConfig);
+
+        customCircuitBreaker.getEventPublisher()
+                .onEvent(event -> log.info("CircuitBreaker onEvent {}", event));
+
+        RetryConfig retryConfig = RetryConfig.<Response>custom()
+                .maxAttempts(4)
+                .waitDuration(Duration.ofMillis(200))
+                .retryExceptions(FeignException.class)
+                .failAfterMaxAttempts(true)
+                .build();
+
+        RetryRegistry retryRegistry = RetryRegistry.of(retryConfig);
+        Retry retry1 = retryRegistry.retry(GITHUB);
+
+
+        retry1.getEventPublisher()
+                .onRetry(event -> log.info("Retry onRetry {}", event));
+
+        FeignDecorators decorators = FeignDecorators.builder()
+              //  .withRateLimiter(rateLimiter)
+                .withCircuitBreaker(customCircuitBreaker)
+                .withRetry(retry1)
+                .build();
+
+        final Retryer retryer = new Retryer.Default(100L, 1_000L, 0);
+        return Resilience4jFeign
+                .builder(decorators)
+                .client(new OkHttpClient())
+                .retryer(retryer)
+                .encoder(new JacksonEncoder(objectMapper))
+                .decoder(new JacksonDecoder(objectMapper))
+                .logger(new Slf4jLogger(GithubFeignInterface.class))
+                .logLevel(Logger.Level.FULL)
+                .target(GithubFeignInterface.class, githubApiProperties.apiUrl());
     }
 }

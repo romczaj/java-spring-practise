@@ -8,7 +8,6 @@ public record UserApiResponse(
     String name,
     String type,
     String avatarUrl,
-    Instant createdAt,
-    Double calculations
+    Instant createdAt
 ) {
 }

@@ -1,7 +1,7 @@
-package pl.romczaj.http.githubclient;
+package com.romczaj.apicallcounter.user.githubclient;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.romczaj.apicallcounter.configuration.ObjectMapperConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.TestSocketUtils;
@@ -9,8 +9,6 @@ import org.springframework.test.util.TestSocketUtils;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.stubbing.Scenario.STARTED;
 
-//@WireMockTest(httpPort = 0, proxyMode = true)
-//@SpringBootTest
 class RestGithubClientTest {
 
     private final GithubFeignInterface githubFeignInterface;
@@ -29,9 +27,10 @@ class RestGithubClientTest {
         configureFor("localhost", availableTcpPort);
 
         GithubOkHttpConfiguration githubOkHttpConfiguration = new GithubOkHttpConfiguration();
-        ObjectMapper objectMapper = githubOkHttpConfiguration.objectMapper();
+        ObjectMapperConfiguration objectMapperConfiguration = new ObjectMapperConfiguration();
+
         this.githubFeignInterface = githubOkHttpConfiguration.githubFeignClient(
-                objectMapper,
+                objectMapperConfiguration.objectMapper(),
                 new GithubApiProperties(wireMockServer.baseUrl()));
 
         this.githubClient = new GithubClient(githubFeignInterface);
@@ -63,13 +62,13 @@ class RestGithubClientTest {
     }
 
 
-
-    private void wiremockResponse(Integer statusCode){
+    private void wiremockResponse(Integer statusCode) {
         stubFor(get(urlEqualTo("/" + user))
                 .willReturn(aResponse().withStatus(statusCode).withBody(OCTOCAT_RESPONSE_BODY)));
 
     }
-    private void wiremockResponse(Integer statusCode, String scenarioStep, String nextScenarioStep){
+
+    private void wiremockResponse(Integer statusCode, String scenarioStep, String nextScenarioStep) {
         stubFor(get(urlEqualTo("/" + user))
                 .inScenario(scenario)
                 .whenScenarioStateIs(scenarioStep)

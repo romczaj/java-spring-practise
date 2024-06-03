@@ -1,4 +1,4 @@
-package pl.romczaj.http.githubclient;
+package com.romczaj.apicallcounter.user.githubclient;
 
 public class ApiGithubException extends RuntimeException{
 

@@ -13,7 +13,6 @@
         <module>spring-security-practise</module>
         <module>heap-error-practise</module>
         <module>multidomain-practise</module>
-        <module>http-practise</module>
         <module>graph-ql-practise</module>
         <module>grpc-practise</module>
         <module>modulith-practise</module>

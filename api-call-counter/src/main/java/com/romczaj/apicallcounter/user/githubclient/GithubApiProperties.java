@@ -1,18 +1,13 @@
-package pl.romczaj.http.githubclient;
+package com.romczaj.apicallcounter.user.githubclient;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-
-import lombok.Getter;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 
 @ConfigurationProperties(prefix = "github")
-@AllArgsConstructor
 @Validated
-@Getter
-public class GithubApiProperties {
-    @NotBlank
-    String apiUrl;
+public record GithubApiProperties(
+        @NotBlank @URL String apiUrl) {
 }

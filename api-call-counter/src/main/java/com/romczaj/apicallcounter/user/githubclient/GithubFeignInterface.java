@@ -1,4 +1,4 @@
-package pl.romczaj.http.githubclient;
+package com.romczaj.apicallcounter.user.githubclient;
 
 import feign.Param;
 import feign.RequestLine;
