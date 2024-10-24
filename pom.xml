@@ -17,6 +17,7 @@
         <module>grpc-practise</module>
         <module>modulith-practise</module>
         <module>batch-app</module>
+        <module>bean-practise</module>
     </modules>
 
     <properties>
