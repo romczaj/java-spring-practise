@@ -1,4 +1,4 @@
-package pl.romczaj.bean.request;
+package pl.romczaj.bean.main.request;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

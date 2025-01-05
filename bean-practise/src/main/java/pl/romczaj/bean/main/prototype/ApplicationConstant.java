@@ -1,4 +1,4 @@
-package pl.romczaj.bean.prototype;
+package pl.romczaj.bean.main.prototype;
 
 class ApplicationConstant {
 

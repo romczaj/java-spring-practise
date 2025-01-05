@@ -1,7 +1,7 @@
-package pl.romczaj.bean.prototype;
+package pl.romczaj.bean.main.prototype;
 
-import static pl.romczaj.bean.prototype.ApplicationConstant.SPORT_CAR_BEAN;
-import static pl.romczaj.bean.prototype.ApplicationConstant.TRUCK_BEAN;
+import static pl.romczaj.bean.main.prototype.ApplicationConstant.SPORT_CAR_BEAN;
+import static pl.romczaj.bean.main.prototype.ApplicationConstant.TRUCK_BEAN;
 
 enum CarType {
     SPORT_CAR(SPORT_CAR_BEAN),

@@ -1,10 +1,8 @@
-package pl.romczaj.bean.prototype;
+package pl.romczaj.bean.main.prototype;
 
 import java.util.UUID;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

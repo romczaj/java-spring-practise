@@ -1,4 +1,4 @@
-package pl.romczaj.bean.prototype;
+package pl.romczaj.bean.main.prototype;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.romczaj.bean.meh.app.MehBean;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 class CarPrototypeController {
 
     private final ApplicationContext applicationContext;
+    private final MehBean mehBean;
 
     @GetMapping("/start-engine")
     void startEngine(@RequestParam CarType carType) {

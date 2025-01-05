@@ -1,10 +1,10 @@
-package pl.romczaj.bean.prototype;
+package pl.romczaj.bean.main.prototype;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import static pl.romczaj.bean.prototype.ApplicationConstant.SPORT_CAR_BEAN;
+import static pl.romczaj.bean.main.prototype.ApplicationConstant.SPORT_CAR_BEAN;
 
 @Component(SPORT_CAR_BEAN)
 class SportsCar implements Car{

@@ -1,4 +1,4 @@
-package pl.romczaj.bean.request;
+package pl.romczaj.bean.main.request;
 
 record CarResponse(
     Long id

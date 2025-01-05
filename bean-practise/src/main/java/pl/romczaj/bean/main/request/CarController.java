@@ -1,4 +1,4 @@
-package pl.romczaj.bean.request;
+package pl.romczaj.bean.main.request;
 
 import java.util.Random;
 import lombok.extern.slf4j.Slf4j;

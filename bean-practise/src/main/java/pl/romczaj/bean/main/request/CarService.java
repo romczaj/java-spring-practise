@@ -1,9 +1,9 @@
-package pl.romczaj.bean.request;
+package pl.romczaj.bean.main.request;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import pl.romczaj.bean.prototype.CarPrototype;
+import pl.romczaj.bean.main.prototype.CarPrototype;
 
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
