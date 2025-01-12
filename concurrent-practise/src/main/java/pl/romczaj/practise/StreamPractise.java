@@ -9,22 +9,22 @@ class StreamPractise {
     public void process() {
 
         Stream.of(1, 2, 3, 4, 5, 6)
-            .map(this::multiply)
+            .map(this::powerValue)
             .filter(n -> n > 3)
-            .map(this::add)
+            .map(this::doubleValue)
             .filter(n -> n > 10)
             .findFirst();
 
         System.out.println("Finish");
     }
 
-    Integer multiply(Integer a) {
-        System.out.println("Multiplying " + a);
+    Integer powerValue(Integer a) {
+        System.out.println("Power " + a);
         return a * a;
     }
 
-    Integer add(Integer a) {
-        System.out.println("Adding " + a);
+    Integer doubleValue(Integer a) {
+        System.out.println("Double " + a);
         return a + a;
     }
 }
