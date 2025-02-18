@@ -22,7 +22,7 @@ class CarService {
     }
 
     CarResponse getCar() {
-        log.info("service {}, carPrototype {}", orderRequest, carPrototype.getIdBean());
+        log.info("Request {}, carPrototype {}", orderRequest, carPrototype.getIdBean());
         return new CarResponse(orderRequest.getCarId());
     }
 }

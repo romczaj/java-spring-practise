@@ -2,4 +2,4 @@
 GET http://localhost:8080/prototype/start-engine?carType=TRUCK
 
 ### request
-GET http://localhost:8080/
+GET http://localhost:8080/request/1

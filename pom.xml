@@ -18,6 +18,7 @@
         <module>modulith-practise</module>
         <module>batch-app</module>
         <module>bean-practise</module>
+        <module>concurrent-practise</module>
     </modules>
 
     <properties>

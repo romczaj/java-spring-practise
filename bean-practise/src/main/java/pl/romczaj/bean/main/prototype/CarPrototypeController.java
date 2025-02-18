@@ -22,9 +22,12 @@ class CarPrototypeController {
     @GetMapping("/start-engine")
     void startEngine(@RequestParam CarType carType) {
         log.info("carPrototype {}", carPrototype().getIdBean());
+        log.info("carPrototype {}", carPrototype().getIdBean());
 
         Car bean = applicationContext.getBean(carType.getBeanName(), Car.class);
         bean.startEngine();
+        bean.startEngine();
+        mehBean.process();
     }
 
     @Lookup

@@ -8,6 +8,12 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @ConfigurationPropertiesScan
 public class Main {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+      //  SpringApplication.run(Main.class, args);
+
+        UtilObject.save();
+        UtilObject.load();
+
+        new UtilObject().get();
+        new UtilObject().get();
     }
 }
